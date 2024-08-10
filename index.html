@@ -2,32 +2,40 @@
 <html lan='en'>
 	<head>
 		<meta charset='utf-8'>
-		<meta name='vierport' content='width=device-width, initial-scale=1.0'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 		<title>Dark Room</title>
 		<link rel='stylesheet' href='style.css'>
 	</head>
 	<body>
+		<audio id='footsteps1' src='footsteps1.wav' type='audio/wav'></audio>
+		<audio id='footsteps2' src='footsteps2.wav' type='audio/wav'></audio>
+		<audio id='footsteps3' src='footsteps3.wav' type='audio/wav'></audio>
 		<div class='main-container'>
-			<div class='current-room'>
+			<div class='constructed-room'>
+				<div class='character-room'>
+				</div>
 				<div class='character' id='character'>
 				</div>
-				<div class='shadow-3 shadows'>
+				<div class='shadow' id='shadow'>
 				</div>
-				<div class='shadow-2 shadows'>
+				
+
+				<div class='hides-shadow'>
 				</div>
-				<div class='shadow-1 shadows'>
+				<div class='hides-shadow'>
 				</div>
-				<div class='shadow-0 shadows'>
+				<div class='hides-shadow'>
 				</div>
-			</div>
-			<!--	
-			<div class='next-room'>
-			</div>
-			-->
+				<div class='hides-shadow'>
+				</div>
 			
+				<div class='object'>
+				</div>
+			</div>
 		</div>	
 
 
-		<script src='script.js'></script>
+		<script src='functions.js'></script>
+		<script src='init.js'></script>
 	</body>
 </html>
