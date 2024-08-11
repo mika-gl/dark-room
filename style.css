@@ -30,7 +30,7 @@
 .character-room {
 	/*grid-area: 9/9/17/17;*/
 	
-	border: solid white 1px; 
+	border: solid white 1px;
 	background-color: black;
 	z-index: 1;
 }
@@ -38,7 +38,7 @@
 	/*grid-area: 9/9/11/11;*/
 	z-index: 999;
 
-	background-color: brown;
+	background-color: rgb(32, 159, 155);
 	filter: brightness(200%);
 }
 .shadow {
@@ -58,10 +58,10 @@
 
 .shadow-bit {
 	grid-area: 1/1/3/3;
-	background-color: lightgrey;
+	background-color: rgb(231, 231, 231);
 	/*border: solid 0.5px black;*/
-	opacity: 0.5;
-	z-index: 1;
+	/*opacity: 0.5;*/
+	z-index: 3;
 }
 
 .hides-shadow {
@@ -71,7 +71,7 @@
 	z-index: 999;
 }
 .door {
-	background-color: orange;
+	background-color: rgb(0, 70, 146);
 	z-index: 999;
 
 }
@@ -79,5 +79,6 @@
 	grid-area: 15/15/17/17;
 	background-color: blue;
 
-	z-index: 0;
+	z-index: 1;
+	opacity: 0;
 }

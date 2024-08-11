@@ -86,12 +86,15 @@ document.addEventListener('keydown', function keyDownHandler(event) {
 	shadowBits.forEach((bit) => {
 		roomObjects.forEach((roomObject) => {
 			if (translateShadowCoordinates(bit).x == getCoordinates(roomObject).x && translateShadowCoordinates(bit).y == getCoordinates(roomObject).y) {
-				roomObject.style.zIndex = `${parseInt(window.getComputedStyle(characterRoom).zIndex) + 1}`;
-				bit.style.zIndex = `${parseInt(window.getComputedStyle(roomObject).zIndex) - 1}`;
-				console.log(bit);
+				//roomObject.style.zIndex = `${parseInt(window.getComputedStyle(characterRoom).zIndex) + 1}`;
+				//bit.style.zIndex = `${parseInt(window.getComputedStyle(roomObject).zIndex) - 1}`;
+				bit.style.opacity = "0";
+				//bit.style.zIndex = "0";
+				roomObject.style.opacity = "1";
+				console.log(translateShadowCoordinates(bit));
 			} else {
-				roomObject.style.zIndex = `${parseInt(window.getComputedStyle(characterRoom).zIndex) - 1}`;
-				bit.style.zIndex = `${parseInt(window.getComputedStyle(roomObject).zIndex) + 1}`;
+				//roomObject.style.zIndex = `${parseInt(window.getComputedStyle(characterRoom).zIndex) - 1}`;
+				//bit.style.zIndex = `${parseInt(window.getComputedStyle(roomObject).zIndex) + 1}`;
 			}
 		});
 	});
