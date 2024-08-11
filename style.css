@@ -25,7 +25,7 @@
 	display: grid;
 	/*grid-template-rows:repeat(24,1fr);*/
 	/*grid-template-columns:repeat(24,1fr);*/
-	z-index: ;
+	/*z-index: ;*/
 }
 .character-room {
 	/*grid-area: 9/9/17/17;*/
@@ -38,16 +38,16 @@
 	/*grid-area: 9/9/11/11;*/
 	z-index: 999;
 
-	background-color: lightgrey;
+	background-color: brown;
 	filter: brightness(200%);
 }
 .shadow {
 	/*grid-area: 1/1/19/19;*/
 
-	background-color: darkgrey;
-	opacity: 0.1;
+	background-color: unset;
+	/*opacity: 0.1;*/
 	
-	z-index: 2;
+	z-index: 1;
 	
 	
 	display: grid;
@@ -58,24 +58,26 @@
 
 .shadow-bit {
 	grid-area: 1/1/3/3;
-	background-color: yellow;
-	border: solid 1px red;
+	background-color: lightgrey;
+	/*border: solid 0.5px black;*/
+	opacity: 0.5;
+	z-index: 1;
 }
 
 .hides-shadow {
 
 	background-color:black;	/*igual al fondo*/
 	/*opacity: 0.2;*/
-	z-index: 3;
+	z-index: 999;
 }
+.door {
+	background-color: orange;
+	z-index: 999;
 
-
-
-
-
+}
 .object {
 	grid-area: 15/15/17/17;
 	background-color: blue;
 
-	z-index:0;
-]
+	z-index: 0;
+}
