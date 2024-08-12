@@ -124,9 +124,26 @@ function setElementXY(element, coordinates, elementPadding, elementSize) {	//qui
 	element.style.gridArea = coordinatesToGridArea(coordinates, elementPadding, elementSize);
 }
 
+function getShadowPosition() {
+	let charChoordinates = getCoordinates(character);
+	size = {
+		top: charChoordinates.y - 4,
+		bottom: charChoordinates.y + 4,
+		right: charChoordinates.x + 4,
+		left: charChoordinates.x - 4
+	}
+	return size;
+}
+
+function isInsideOfShadow(element) {
+	let e_Coordinates = getCoordinates(element);
+	let shadowPosition = getShadowPosition();
+	let sh_arr = [shadowPosition.top, shadowPosition.right, shadowPosition.bottom, shadowPosition.left];
+	return e_Coordinates.y >= sh_arr[0] && e_Coordinates.y <= sh_arr[2] && e_Coordinates.x >= sh_arr[3] && e_Coordinates.x <= sh_arr[1];
+} 
 function createShadowBits() {
 	for (let i=1; i <= (shadowSize/2)+1; i++) {
-		for (let k=1; k <= shadowSize/2; k++) {
+		for (let k=1; k <= shadowSize/2 +1; k++) { //shadowSize/2
 			if (!(k===5 && i===5)) {
 				let div = document.createElement('div');
 				div.classList.add('shadow-bit');
@@ -147,3 +164,20 @@ function distributeShadowHiders() {
 	shadowHiders[3].style.gridArea = `${constructedRoomSize-charPadding+1}/${charPadding+1}/${constructedRoomSize+1}/${constructedRoomSize-charPadding+1}`;
 }
 
+function shadowLogic(sh_coord, obj_coord, char_coord) {
+	let isReflected = sh_coord.x == 2*obj_coord.x - char_coord.x && sh_coord.y == 2*obj_coord.y - char_coord.y;
+
+	let isAlined_x = sh_coord.y == char_coord.y && char_coord.y == obj_coord.y;
+	let isAlined_y = sh_coord.x == char_coord.x && char_coord.x == obj_coord.x; 
+	//en vez de que la condicion para 'char_coord' sea de igualdad entre sus coordenadas, podria ser simplemente que se encontraran en el cuadrante contrario al de la sombra.
+	//de esta manera la sombra diagonal se mantendra en caso de que no se encuentre exactamente alineado el personaje
+	let isOppositeAlined_diagonal = ((char_coord.x-obj_coord.x == char_coord.y-obj_coord.y && sh_coord.x-obj_coord.x == sh_coord.y-obj_coord.y) || (char_coord.x-obj_coord.x == -(char_coord.y-obj_coord.y) && (sh_coord.x-obj_coord.x == -(sh_coord.y-obj_coord.y))))
+		&& ((char_coord.y > obj_coord.y && obj_coord.y > sh_coord.y) || (char_coord.y < obj_coord.y && obj_coord.y < sh_coord.y));
+
+	let isOppositeAlined_x = isAlined_x && ((char_coord.x > obj_coord.x && obj_coord.x > sh_coord.x) || (char_coord.x < obj_coord.x && obj_coord.x < sh_coord.x)); 
+	let isOppositeAlined_y = isAlined_y && ((char_coord.y > obj_coord.y && obj_coord.y > sh_coord.y) || (char_coord.y < obj_coord.y && obj_coord.y < sh_coord.y)); 
+
+	
+
+	return /*isReflected || */ isOppositeAlined_x || isOppositeAlined_y || isOppositeAlined_diagonal;
+}

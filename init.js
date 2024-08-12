@@ -15,7 +15,7 @@ var regex = /\d+/g;	//regex para buscar los digitos de ComputedStyle de GridArea
 
 //variables de mapa
 var charSize = 2;
-var shadowSize = 18;
+var shadowSize = 18; //18
 var charPadding = 8;
 
 
@@ -26,7 +26,7 @@ constructedRoom.style.gridTemplateRows = `repeat(${constructedRoomSize},1fr)`;
 constructedRoom.style.gridTemplateColumns = `repeat(${constructedRoomSize},1fr)`;
 
 setElementXY(character, {x:10,y:10}, charPadding, charSize);
-setElementXY(shadow, {x:10,y:10}, 0, shadowSize);
+setElementXY(shadow, {x:10,y:10}, 0, shadowSize); //{x:10,y:10}
 characterRoom.style.gridArea = `${charPadding+1}/${charPadding+1}/${constructedRoomSize-charPadding+1}/${constructedRoomSize-charPadding+1}`;
 
 
@@ -74,7 +74,7 @@ document.addEventListener('keydown', function keyDownHandler(event) {
 		moveElement(shadow, 0, event);
 		playFootsteps();
 	
-		setTimeout(() => { justMoved = false; }, 300); //duracion de audios 250ms
+		setTimeout(() => { justMoved = false; }, 300); //si es menos que la duracion del audio, el audio no alcanzara a terminar y se lo saltara (250ms)
 		console.log(`character moved to: ${getCoordinates(character).x},${getCoordinates(character).y}`);
 
 	} else {
@@ -85,19 +85,25 @@ document.addEventListener('keydown', function keyDownHandler(event) {
 	//deteccion de sombra en cada shadow bit 
 	shadowBits.forEach((bit) => {
 		roomObjects.forEach((roomObject) => {
-			if (translateShadowCoordinates(bit).x == getCoordinates(roomObject).x && translateShadowCoordinates(bit).y == getCoordinates(roomObject).y) {
-				//roomObject.style.zIndex = `${parseInt(window.getComputedStyle(characterRoom).zIndex) + 1}`;
-				//bit.style.zIndex = `${parseInt(window.getComputedStyle(roomObject).zIndex) - 1}`;
-				bit.style.opacity = "0";
-				//bit.style.zIndex = "0";
-				roomObject.style.opacity = "1";
-				console.log(translateShadowCoordinates(bit));
+			if (isInsideOfShadow(roomObject)) {
+			roomObject.style.opacity = "1";
 			} else {
-				//roomObject.style.zIndex = `${parseInt(window.getComputedStyle(characterRoom).zIndex) - 1}`;
-				//bit.style.zIndex = `${parseInt(window.getComputedStyle(roomObject).zIndex) + 1}`;
+				roomObject.style.opacity = "0";
 			}
+
+			/*logica para generacion de sombras dependiendo de donde se encuentra el personaje */
+			let sh_coord = translateShadowCoordinates(bit);
+			let obj_coord = getCoordinates(roomObject);
+			let char_coord = getCoordinates(character);
+			//formula para reflexion de una coordenada referente a un punt: x_2 = 2x_r - x_1
+			if (shadowLogic(sh_coord, obj_coord, char_coord)) {
+				bit.style.opacity = "0";
+			} else {
+				bit.style.opacity = "1";
+			}
+
 		});
 	});
-	console.log(`an object is at: ${getCoordinates(roomObjects[0]).x},${getCoordinates(roomObjects[0]).y}`);
+	//console.log(`an object is at: ${getCoordinates(roomObjects[0]).x},${getCoordinates(roomObjects[0]).y}`);
 	
 });
